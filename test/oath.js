@@ -78,19 +78,21 @@ describe('oath', function () {
         } else {
           callback('Not big enough!', null);
         }
-      });
+      }, 0);
     };
 
     var promised = oath.promisify(nodeStyle);
-    xit('should call then on success', function (done) {
-      promised(bigEnough)
-        .then(function (message) {
+    console.log(promised(bigEnough), 'promisify')
+    it('should call then on success', function (done) {
+      var a = promised(bigEnough)
+      a.then(function (message) {
           expect(message).to.equal('That\'s a big number!');
           done();
         });
+      console.log(a)
     });
 
-    xit('should call catch on error', function (done) {
+    it('should call catch on error', function (done) {
       promised(tooSmall)
         .catch(function (message) {
           expect(message).to.equal('Not big enough!');
